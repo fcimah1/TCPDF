@@ -40,7 +40,7 @@ class ReportGenerator {
         $pdf->AddPage();
         
         // استخدام خط يدعم العربية
-        $pdf->SetFont('dejavusans', 'B', 16);
+        $pdf->SetFont('dejavusans', 'B', 14);
         $pdf->Cell(0, 10, 'تقرير حركات المخزون', 0, 1, 'C');
         $pdf->Ln(2);
         
@@ -56,7 +56,8 @@ class ReportGenerator {
         $pdf->writeHTML($html, true, false, true, false, '');
         
         // حفظ الملف
-        $filename = "stock_moves_{$startId}_to_{$endId}_" . date('YmdHis') . ".pdf";
+        // $filename = "stock_moves_{$startId}_to_{$endId}_" . date('YmdHis') . ".pdf";
+        $filename = "حركة_المخزون_({$startId}_to_{$endId})_" . date('Y-m-d') . ".pdf";
         $filepath = $reportsDir . '/' . $filename;
         $pdf->Output($filepath, 'F');
         
@@ -71,7 +72,7 @@ class ReportGenerator {
             table {
                 border-collapse: collapse;
                 width: 100%;
-                font-size: 9px;
+                font-size: 8px;
                 direction: rtl;
             }
             th {
@@ -96,29 +97,31 @@ class ReportGenerator {
         </style>';
         
         $html .= '<table dir="rtl">';
-        $html .= '<thead><tr>
-                    <th width="11%">رقم المعاملة</th>
-                    <th width="11%">رقم الحركة</th>
-                    <th width="11%">النوع</th>
-                    <th width="13%">كود الصنف</th>
-                    <th width="11%">كود المخزن</th>
-                    <th width="11%">التاريخ</th>
-                    <th width="11%">الكمية</th>
-                    <th width="11%">السعر</th>
-                    <th width="10%">الخصم %</th>
-                  </tr></thead>';
+        $html .= '<thead>
+                    <tr>
+                        <th width="11%">رقم المعاملة</th>
+                        <th width="10%">رقم الحركة</th>
+                        <th width="8%">النوع</th>
+                        <th width="17%">كود الصنف</th>
+                        <th width="11%">كود المخزن</th>
+                        <th width="13%">التاريخ</th>
+                        <th width="10%">الكمية</th>
+                        <th width="10%">السعر</th>
+                        <th width="10%">الخصم %</th>
+                    </tr>
+                  </thead>';
         
         $html .= '<tbody>';
         foreach ($data as $row) {
             $html .= '<tr>';
             $html .= '<td width="11%">' . htmlspecialchars($row['trans_id'] ?? '') . '</td>';
-            $html .= '<td width="11%">' . htmlspecialchars($row['trans_no'] ?? '') . '</td>';
-            $html .= '<td width="11%">' . htmlspecialchars($row['type'] ?? '') . '</td>';
-            $html .= '<td width="13%">' . htmlspecialchars($row['stock_id'] ?? '') . '</td>';
+            $html .= '<td width="10%">' . htmlspecialchars($row['trans_no'] ?? '') . '</td>';
+            $html .= '<td width="8%">' . htmlspecialchars($row['type'] ?? '') . '</td>';
+            $html .= '<td width="17%">' . htmlspecialchars($row['stock_id'] ?? '') . '</td>';
             $html .= '<td width="11%">' . htmlspecialchars($row['loc_code'] ?? '') . '</td>';
-            $html .= '<td width="11%">' . htmlspecialchars($row['tran_date'] ?? '') . '</td>';
-            $html .= '<td width="11%">' . number_format($row['qty'] ?? 0, 2) . '</td>';
-            $html .= '<td width="11%">' . number_format($row['price'] ?? 0, 2) . '</td>';
+            $html .= '<td width="13%">' . htmlspecialchars($row['tran_date'] ?? '') . '</td>';
+            $html .= '<td width="10%">' . number_format($row['qty'] ?? 0, 2) . '</td>';
+            $html .= '<td width="10%">' . number_format($row['price'] ?? 0, 2) . '</td>';
             $html .= '<td width="10%">' . number_format($row['discount_percent'] ?? 0, 2) . '%</td>';
             $html .= '</tr>';
         }
