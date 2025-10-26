@@ -415,6 +415,8 @@ $recentLogs = $pdo->query("SELECT * FROM queue_logs ORDER BY id DESC LIMIT 20")-
             <button onclick="runWatcher()" class="btn btn-primary">🔍  بحث عن عمليات جديدة</button>
             <button onclick="runWorker()" class="btn btn-success">⚙️  توليد التقارير الجديده</button>
             <!-- <a href="check_data.php" class="btn btn-primary " style="background: #17a2b8;">🔍 فحص البيانات</a> -->
+             <!-- اضافة بيانات تجريبية -->
+             <a href="insert_test_data.php" class="btn btn-primary " style="background: #17a2b8;">🔍 إضافة بيانات تجريبية</a>
             <!-- <a href="run_migrations.php" class="btn btn-primary " style="background: #6c757d;">⚙️ تشغيل Migrations</a> -->
             <a href="reset_queue.php" class="btn btn-danger ">🗑️ إعادة استخراج الملفات من البدايه</a>
             <a href="dashboard.php" class="btn btn-danger  ">🔄 تحديث الصفحة</a>

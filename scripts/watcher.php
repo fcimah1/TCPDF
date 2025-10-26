@@ -19,7 +19,7 @@ if (file_exists($lockFile)) {
     $currentTime = time();
     
     // إذا كان الملف موجود منذ أقل من 5 دقائق، لا تشغل
-    if (($currentTime - $lockTime) < 300) {
+    if (($currentTime - $lockTime) < 120) {
         echo "[⚠️] Watcher is already running. Please wait...\n";
         exit(0);
     } else {
