@@ -21,7 +21,7 @@ class JobWorker {
         
         try {
             // تحديث حالة المهمة إلى processing
-            $this->db->updateJobStatus($jobId, 'تتم معالجة العمليات', $this->workerId);
+            $this->db->updateJobStatus($jobId, 'processing', $this->workerId);
             $this->db->log('INFO', "تتم معالجة العمليات #$jobId: $startTransId to $endTransId", $jobId);
             
             // جلب البيانات من النطاق المحدد بالضبط
@@ -38,7 +38,7 @@ class JobWorker {
             $this->db->saveReportBatch($startTransId, $endTransId, $filepath);
             
             // تحديث حالة المهمة إلى done
-            $this->db->updateJobStatus($jobId, 'تم معالجة العمليات');
+            $this->db->updateJobStatus($jobId, 'done');
             $this->db->log('SUCCESS', "Job #$jobId completed. PDF: $filepath", $jobId);
             
             echo "[✅] Job #$jobId completed: $filepath\n";
